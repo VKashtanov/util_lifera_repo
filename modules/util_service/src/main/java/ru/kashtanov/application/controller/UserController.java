@@ -1,6 +1,7 @@
 package ru.kashtanov.application.controller;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 import com.liferay.portal.kernel.log.Log;
@@ -9,6 +10,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import ru.kashtanov.application.dto.SearchUserRequest;
+import ru.kashtanov.application.dto.UserDto;
 import ru.kashtanov.application.service.UserService;
 
 import javax.ws.rs.*;
@@ -39,13 +41,13 @@ public class UserController extends Application {
     @Path("/users/_search")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String searchColleagues(SearchUserRequest searchDto) {
-        long companyId = searchDto.getCompanyId();
-        String searchQueryDto = searchDto.getKeyword();
-        int usersLimit = searchDto.getLimit();
-
-        log.debug("searchColleagues called. Searching users limit " + usersLimit + " for " + searchQueryDto);
-        return registrationService.findUsers(companyId, searchQueryDto, usersLimit).toString();
+    public List<UserDto> searchColleagues(SearchUserRequest searchDto) {
+        var companyId = searchDto.getCompanyId();
+        var keyword = searchDto.getKeyword();
+        int limit = searchDto.getLimit();
+        List<UserDto> users = registrationService.findUsers(companyId, keyword, limit);
+        log.debug("searchColleagues called. Searching users limit " + limit + " for " + keyword);
+        return users;
     }
 
 

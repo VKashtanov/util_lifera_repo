@@ -57,7 +57,7 @@ public class CustomedUserUtilService {
         userDto.setPortraitUrl(portraitUrl);
     }
 
-    private String buildUniversalPortraitUrl(User user) {
+    public String buildUniversalPortraitUrl(User user) {
         try {
             ThemeDisplay themeDisplay = createBasicThemeDisplay(user.getCompanyId());
             return user.getPortraitURL(themeDisplay);

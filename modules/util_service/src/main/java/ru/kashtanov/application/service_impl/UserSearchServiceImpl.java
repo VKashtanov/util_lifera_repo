@@ -7,6 +7,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
+import ru.kashtanov.application.dto.UserDto;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,6 +19,7 @@ import java.util.List;
 
 public class UserSearchServiceImpl {
     private static final Log log = LogFactoryUtil.getLog(UserSearchServiceImpl.class);
+
 
     private static List<String> splitQuery(String word) {
         List<String> list = new ArrayList<>();
@@ -154,6 +156,8 @@ public class UserSearchServiceImpl {
         params.add(word3 + "%");  // middleName
 
     }
+
+
 
 
 }
