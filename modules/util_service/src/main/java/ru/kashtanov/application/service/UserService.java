@@ -23,15 +23,14 @@ public class UserService {
     private static final Log log = LogFactoryUtil.getLog(UserService.class);
 
     private final UserSearchServiceImpl userSearchService = new UserSearchServiceImpl();
-    private final ResponseServiceImpl responseService = new ResponseServiceImpl();
     private final DtoConvertorServiceImpl dtoConvertorService = new DtoConvertorServiceImpl();
 
-    public List<UserDto> findUsers(long companyId, String query, int maxResults) {
+    public List<UserDto> findUsers(long companyId, String query, int limit, int offset) {
         try {
-            List<User> foundUsers = userSearchService.search(companyId, query, maxResults);
+            List<User> foundUsers = userSearchService.search(companyId, query, limit, offset);
             return dtoConvertorService.convertToDto(foundUsers);
         } catch (SQLException e) {
-            log.error("Impossible to find Users: "+ e);
+            log.error("Impossible to find Users: " + e);
             return Collections.emptyList();
         }
 

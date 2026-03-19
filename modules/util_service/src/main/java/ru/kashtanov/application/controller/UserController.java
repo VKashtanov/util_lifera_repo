@@ -41,11 +41,12 @@ public class UserController extends Application {
     @Path("/users/_search")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public List<UserDto> searchColleagues(SearchUserRequest searchDto) {
-        var companyId = searchDto.getCompanyId();
-        var keyword = searchDto.getKeyword();
-        int limit = searchDto.getLimit();
-        List<UserDto> users = registrationService.findUsers(companyId, keyword, limit);
+    public List<UserDto> searchColleagues(SearchUserRequest request) {
+        var companyId = request.getCompanyId();
+        var keyword = request.getKeyword();
+        var limit = request.getLimit();
+        var offset = request.getOffset();
+        List<UserDto> users = registrationService.findUsers(companyId, keyword, limit, offset);
         log.debug("searchColleagues called. Searching users limit " + limit + " for " + keyword);
         return users;
     }

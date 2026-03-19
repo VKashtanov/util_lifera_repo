@@ -28,15 +28,16 @@ public class UserSearchServiceImpl {
         }
         String[] parts = word.trim().split("\\s+", 3);
         for (String part : parts) {
-            if (part != null && !part.trim().isEmpty()) {
-                list.add(part);
+            String trimmed = part.trim();
+            if (!part.trim().isEmpty()) {
+                list.add(trimmed);
             }
         }
         return list;
     }
 
-
-    public List<User> search(long companyId, String query, int maxResults) throws SQLException {
+    // To check requests you may in sql_querries_for_searching.sql
+    public List<User> search(long companyId, String query, int limit,int offset) throws SQLException {
 
         List<User> users = new ArrayList<>();
         Connection conn = null;
@@ -72,14 +73,13 @@ public class UserSearchServiceImpl {
                 default:
                     break;
             }
-
-
             for (String cond : conditions) {
                 sql.append(" AND ").append(cond);
             }
 
-            sql.append(" ORDER BY lastName, firstName LIMIT ?");
-            params.add(maxResults);
+            sql.append(" ORDER BY lastName, firstName LIMIT ? OFFSET ?");
+            params.add(limit);
+            params.add(offset);
 
             ps = conn.prepareStatement(sql.toString());
             for (int i = 0; i < params.size(); i++) {

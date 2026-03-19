@@ -9,6 +9,7 @@ public class SearchUserRequest {
     private Long companyId;
     private String keyword;
     private Integer limit;
+    private Integer offset;
 
     public Long getCompanyId() {
         return companyId;
@@ -34,16 +35,24 @@ public class SearchUserRequest {
         this.limit = limit;
     }
 
+    public Integer getOffset() {
+        return offset;
+    }
+
+    public void setOffset(Integer offset) {
+        this.offset = offset;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         SearchUserRequest that = (SearchUserRequest) o;
-        return Objects.equals(companyId, that.companyId) && Objects.equals(keyword, that.keyword) && Objects.equals(limit, that.limit);
+        return Objects.equals(companyId, that.companyId) && Objects.equals(keyword, that.keyword) && Objects.equals(limit, that.limit) && Objects.equals(offset, that.offset);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(companyId, keyword, limit);
+        return Objects.hash(companyId, keyword, limit, offset);
     }
 
     @Override
@@ -52,6 +61,7 @@ public class SearchUserRequest {
                 "companyId=" + companyId +
                 ", keyword='" + keyword + '\'' +
                 ", limit=" + limit +
+                ", offset=" + offset +
                 '}';
     }
 }
