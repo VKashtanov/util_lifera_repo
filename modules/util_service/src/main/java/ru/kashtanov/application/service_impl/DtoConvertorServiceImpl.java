@@ -16,23 +16,24 @@ public class DtoConvertorServiceImpl {
     private final CustomedUserUtilService customedUserUtilService = new CustomedUserUtilService();
 
 
-    public List<UserDto> convertToDto(List<User> users) {
-        return users.stream().map(
-                user ->
-                {
-                    var dto = new UserDto();
-                    dto.setUserId(user.getUserId());
-                    dto.setFirstName(user.getFirstName());
-                    dto.setLastName(user.getLastName());
-                    dto.setFullName(user.getFullName());
-                    dto.setEmail(user.getEmailAddress());
-                    dto.setPosition(user.getJobTitle());
-                    dto.setPortraitUrl(customedUserUtilService.buildUniversalPortraitUrl(user));
-                    List<Phone> phones = user.getPhones();
-                    dto.setPhone(phones.isEmpty() ? Collections.emptyList().toString() : phones.get(0).toString());
-                    return dto;
-                }
-        ).collect(Collectors.toList());
+    public List<UserDto> convertToDtoList(List<User> users) {
+        return users.stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+    }
 
+    public UserDto convertToDto(User user) {
+        var dto = new UserDto();
+        dto.setUserId(user.getUserId());
+        dto.setFirstName(user.getFirstName());
+        dto.setMiddleName(user.getMiddleName());
+        dto.setLastName(user.getLastName());
+        dto.setFullName(user.getFullName());
+        dto.setEmail(user.getEmailAddress());
+        dto.setPosition(user.getJobTitle());
+        dto.setPortraitUrl(customedUserUtilService.buildUniversalPortraitUrl(user));
+        List<Phone> phones = user.getPhones();
+        dto.setPhone(phones.isEmpty() ? Collections.emptyList().toString() : phones.get(0).toString());
+        return dto;
     }
 }

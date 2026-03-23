@@ -6,13 +6,22 @@ public class UserDto {
     private long userId;
     private String fullName;
     private String firstName;
+    private String middleName;
     private String lastName;
     private String email;        // ← только если разрешено!
     private String position;
     private String portraitUrl;
-    private String phone="";
+    private String phone = "";
 
     public UserDto() {
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
     }
 
     public String getPhone() {

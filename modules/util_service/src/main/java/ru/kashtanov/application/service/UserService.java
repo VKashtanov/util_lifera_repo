@@ -5,6 +5,7 @@ import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import org.osgi.service.component.annotations.Component;
 import ru.kashtanov.application.dto.UserDto;
 import ru.kashtanov.application.service_impl.DtoConvertorServiceImpl;
@@ -14,6 +15,7 @@ import ru.kashtanov.application.service_impl.UserSearchServiceImpl;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Viktor Кashtanov
@@ -28,14 +30,22 @@ public class UserService {
     public List<UserDto> findUsers(long companyId, String query, int limit, int offset) {
         try {
             List<User> foundUsers = userSearchService.search(companyId, query, limit, offset);
-            return dtoConvertorService.convertToDto(foundUsers);
+            return dtoConvertorService.convertToDtoList(foundUsers);
         } catch (SQLException e) {
             log.error("Impossible to find Users: " + e);
             return Collections.emptyList();
         }
-
-
     }
 
-
+    public Optional<UserDto> findUserById(long userId) {
+        var dto = new UserDto();
+        try {
+            User userById = UserLocalServiceUtil.getUserById(userId);
+            dto = dtoConvertorService.convertToDto(userById);
+            return Optional.of(dto);
+        } catch (PortalException e) {
+            log.error("Impossible to find UserById: " + e);
+            return Optional.empty();
+        }
+    }
 }

@@ -2,11 +2,16 @@ package ru.kashtanov.application.controller;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import ru.kashtanov.application.dto.SearchUserRequest;
@@ -16,6 +21,7 @@ import ru.kashtanov.application.service.UserService;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 
 /**
@@ -34,7 +40,7 @@ public class UserController extends Application {
     private static final Log log = LogFactoryUtil.getLog(UserController.class);
 
     @Reference
-    private UserService registrationService;
+    private UserService userService;
 
 
     @POST
@@ -46,9 +52,19 @@ public class UserController extends Application {
         var keyword = request.getKeyword();
         var limit = request.getLimit();
         var offset = request.getOffset();
-        List<UserDto> users = registrationService.findUsers(companyId, keyword, limit, offset);
+        List<UserDto> users = userService.findUsers(companyId, keyword, limit, offset);
         log.debug("searchColleagues called. Searching users limit " + limit + " for " + keyword);
         return users;
+    }
+
+
+    @GET
+    @Path("/users/{userId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getUser(@PathParam("userId") Long userId) {
+        Optional<UserDto> userById1 = userService.findUserById(userId);
+        return userById1.map(user -> Response.ok(user).build())
+                .orElse(Response.status(Response.Status.NOT_FOUND).build());
     }
 
 
