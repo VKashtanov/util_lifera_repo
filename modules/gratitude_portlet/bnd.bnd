@@ -1,0 +1,8 @@
+Bundle-Name: gratitude_portlet
+Bundle-SymbolicName: ru.gpn.prosto_ogon_big_widget1
+Bundle-Version: 1.0.0
+Export-Package: ru.gpn.constants
+
+Provide-Capability:\
+	liferay.language.resources;\
+		resource.bundle.base.name="content.Language"

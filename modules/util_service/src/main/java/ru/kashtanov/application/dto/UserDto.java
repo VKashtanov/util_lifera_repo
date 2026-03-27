@@ -1,5 +1,8 @@
 package ru.kashtanov.application.dto;
 
+import com.liferay.portal.kernel.model.Phone;
+
+import java.util.List;
 import java.util.Objects;
 
 public class UserDto {
@@ -11,7 +14,7 @@ public class UserDto {
     private String email;        // ← только если разрешено!
     private String position;
     private String portraitUrl;
-    private String phone = "";
+    private List<Phone> phones;
 
     public UserDto() {
     }
@@ -24,13 +27,6 @@ public class UserDto {
         this.middleName = middleName;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
 
     public long getUserId() {
         return userId;
@@ -88,16 +84,24 @@ public class UserDto {
         this.portraitUrl = portraitUrl;
     }
 
+    public List<Phone> getPhones() {
+        return phones;
+    }
+
+    public void setPhones(List<Phone> phones) {
+        this.phones = phones;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        UserDto userDto = (UserDto) o;
-        return userId == userDto.userId && Objects.equals(fullName, userDto.fullName) && Objects.equals(firstName, userDto.firstName) && Objects.equals(lastName, userDto.lastName) && Objects.equals(email, userDto.email) && Objects.equals(position, userDto.position) && Objects.equals(portraitUrl, userDto.portraitUrl) && Objects.equals(phone, userDto.phone);
+        UserDto dto = (UserDto) o;
+        return userId == dto.userId && Objects.equals(fullName, dto.fullName) && Objects.equals(firstName, dto.firstName) && Objects.equals(middleName, dto.middleName) && Objects.equals(lastName, dto.lastName) && Objects.equals(email, dto.email) && Objects.equals(position, dto.position) && Objects.equals(portraitUrl, dto.portraitUrl) && Objects.equals(phones, dto.phones);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, fullName, firstName, lastName, email, position, portraitUrl, phone);
+        return Objects.hash(userId, fullName, firstName, middleName, lastName, email, position, portraitUrl, phones);
     }
 
     @Override
@@ -106,11 +110,14 @@ public class UserDto {
                 "userId=" + userId +
                 ", fullName='" + fullName + '\'' +
                 ", firstName='" + firstName + '\'' +
+                ", middleName='" + middleName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", position='" + position + '\'' +
                 ", portraitUrl='" + portraitUrl + '\'' +
-                ", phone='" + phone + '\'' +
+                ", phones=" + phones +
                 '}';
     }
 }
+
+

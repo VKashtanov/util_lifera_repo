@@ -33,7 +33,7 @@ public class DtoConvertorServiceImpl {
         dto.setPosition(user.getJobTitle());
         dto.setPortraitUrl(customedUserUtilService.buildUniversalPortraitUrl(user));
         List<Phone> phones = user.getPhones();
-        dto.setPhone(phones.isEmpty() ? Collections.emptyList().toString() : phones.get(0).toString());
+        dto.setPhones(phones);
         return dto;
     }
 }
