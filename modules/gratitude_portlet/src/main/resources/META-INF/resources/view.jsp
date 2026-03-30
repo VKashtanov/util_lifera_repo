@@ -1833,7 +1833,7 @@
         isListingVisible: <%= isListingVisible %>,
         springApiUrl: 'http://10.0.2.2:8081/api'   };
 
-    console.log("11 2 Config: " + appConfig.springApiUrl)
+    console.log("123 2 Config: " + appConfig.springApiUrl)
 </script>
 <script src="<%= contextPath %>/js/widget.js"></script>
 <% } %>

@@ -454,7 +454,7 @@
             }
 
             this.timeoutId = setTimeout(async () => {
-                const url = `${appConfig.springApiUrl}/gratitudes/search`;
+                const url = `${appConfig.springApiUrl}/gratitude/search`;
                 this.controller = new AbortController();
                 const fetchTimeout = setTimeout(() => this.controller.abort(), 5000);
 
@@ -741,7 +741,7 @@
                     this.sendButton.textContent = 'Отправка...';
                 }
 
-                const response = await fetch(`${appConfig.springApiUrl}/gratitudes/send`, {                    method: 'POST',
+                const response = await fetch(`${appConfig.springApiUrl}/gratitude/send`, {                    method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -834,7 +834,7 @@
                 };
 
 
-                const response = await fetch(`${appConfig.springApiUrl}/gratitudes`, {
+                const response = await fetch(`${appConfig.springApiUrl}/gratitude`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -1124,7 +1124,7 @@
                     siteId: appConfig.siteId,
                     companyId: appConfig.companyId
                 };
-                const response = await fetch(`${appConfig.springApiUrl}/gratitudes/like`, {                    method: 'POST',
+                const response = await fetch(`${appConfig.springApiUrl}/gratitude/like`, {                    method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -1195,7 +1195,7 @@
                 siteId: appConfig.siteId,
                 userId: appConfig.currentUserId
             };
-            const response = await fetch(`${appConfig.springApiUrl}/top-thankers`, {
+            const response = await fetch(`${appConfig.springApiUrl}/gratitude/top-thankers`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -1211,7 +1211,7 @@
                 siteId: appConfig.siteId,
                 userId: appConfig.currentUserId
             };
-            const response = await fetch(`${appConfig.springApiUrl}/thanked-most-of-all`, {
+            const response = await fetch(`${appConfig.springApiUrl}/gratitude/thanked-most-of-all`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -1387,7 +1387,7 @@
                 };
 
 
-                const response = await fetch(`${appConfig.springApiUrl}/gratitudes`, {
+                const response = await fetch(`${appConfig.springApiUrl}/gratitude`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -1467,7 +1467,7 @@
                 };
 
 
-                const response = await fetch(`${appConfig.springApiUrl}/gratitudes`, {                    method: 'POST',
+                const response = await fetch(`${appConfig.springApiUrl}/gratitude`, {                    method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
